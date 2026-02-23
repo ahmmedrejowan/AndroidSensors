@@ -27,10 +27,14 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -90,11 +94,21 @@ fun SensorDetailScreen(
                 },
                 actions = {
                     // Sampling rate selector
-                    IconButton(onClick = { showSamplingMenu = true }) {
-                        Icon(
-                            imageVector = Icons.Default.Speed,
-                            contentDescription = "Sampling Rate"
-                        )
+                    TooltipBox(
+                        positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                        tooltip = {
+                            PlainTooltip {
+                                Text("Sampling Rate: ${samplingRate.displayName}")
+                            }
+                        },
+                        state = rememberTooltipState()
+                    ) {
+                        IconButton(onClick = { showSamplingMenu = true }) {
+                            Icon(
+                                imageVector = Icons.Default.Speed,
+                                contentDescription = "Sampling Rate"
+                            )
+                        }
                     }
                     DropdownMenu(
                         expanded = showSamplingMenu,
@@ -125,19 +139,39 @@ fun SensorDetailScreen(
                     }
 
                     // Clear history
-                    IconButton(onClick = { viewModel.clearHistory() }) {
-                        Icon(
-                            imageVector = Icons.Default.ClearAll,
-                            contentDescription = "Clear History"
-                        )
+                    TooltipBox(
+                        positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                        tooltip = {
+                            PlainTooltip {
+                                Text("Clear History")
+                            }
+                        },
+                        state = rememberTooltipState()
+                    ) {
+                        IconButton(onClick = { viewModel.clearHistory() }) {
+                            Icon(
+                                imageVector = Icons.Default.ClearAll,
+                                contentDescription = "Clear History"
+                            )
+                        }
                     }
 
                     // Pause/Resume
-                    IconButton(onClick = { viewModel.togglePause() }) {
-                        Icon(
-                            imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
-                            contentDescription = if (isPaused) "Resume" else "Pause"
-                        )
+                    TooltipBox(
+                        positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                        tooltip = {
+                            PlainTooltip {
+                                Text(if (isPaused) "Resume" else "Pause")
+                            }
+                        },
+                        state = rememberTooltipState()
+                    ) {
+                        IconButton(onClick = { viewModel.togglePause() }) {
+                            Icon(
+                                imageVector = if (isPaused) Icons.Default.PlayArrow else Icons.Default.Pause,
+                                contentDescription = if (isPaused) "Resume" else "Pause"
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

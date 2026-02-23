@@ -8,6 +8,10 @@
     <!-- Activity recognition for step counter/detector -->
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
+    <!-- High sampling rate for fastest sensor delay -->
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"
+        tools:ignore="HighSamplingRate" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
