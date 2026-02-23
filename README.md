@@ -141,7 +141,19 @@ To build and run the project, follow these steps:
 ./gradlew connectedAndroidTest
 ```
 
-**Note**: Test coverage is currently being developed and will be added in future releases.
+### Test Coverage
+
+| Test File | Tests | Coverage |
+|-----------|-------|----------|
+| `SensorInfoTest` | 25 | Display names, units, single-value detection |
+| `SensorCategoryTest` | 6 | Enum values, display names, ordering |
+| `SensorDataTest` | 12 | Data class equality, hashCode, values |
+| `SamplingRateTest` | 10 | Enum values, delay constants, display names |
+| `ThemeModeTest` | 6 | Theme enum values, string conversion |
+| `HomeViewModelTest` | 10 | Search, filtering, toggle states |
+| `SensorDetailViewModelTest` | 14 | Pause/resume, sampling rate, history, statistics |
+
+**Libraries Used**: JUnit, MockK, Kotlinx Coroutines Test, Turbine, Koin Test
 
 ---
 
@@ -154,7 +166,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Follow the existing code style and architecture
-4. Add tests for new features (when test infrastructure is ready)
+4. Add tests for new features
 5. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 6. Push to the branch (`git push origin feature/AmazingFeature`)
 7. Open a Pull Request
