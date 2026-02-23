@@ -73,4 +73,7 @@ dependencies {
 
     // DataStore
     implementation(libs.androidx.datastore.preferences)
+
+    // Licensy
+    implementation(libs.licensy.compose)
 }

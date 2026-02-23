@@ -12,6 +12,7 @@ koinAndroidxCompose = "4.1.1"
 mpandroidchartReworked = "1.0"
 navigationCompose = "2.9.7"
 datastorePreferences = "1.2.0"
+licensyCompose = "1.1.0"
 
 [libraries]
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
@@ -33,6 +34,7 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 mpandroidchart-reworked = { module = "com.github.r3jo1:MPAndroidChart-Reworked", version.ref = "mpandroidchartReworked" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+licensy-compose = { module = "com.rejowan:licensy-compose", version.ref = "licensyCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
