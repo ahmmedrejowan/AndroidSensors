@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rejowan.androidsensors"
+    namespace = "com.rejowan.sensors"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.rejowan.androidsensors"
+        applicationId = "com.rejowan.sensors"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
