@@ -1,42 +1,25 @@
 package com.rejowan.androidsensors
 
-import android.content.Intent
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.rejowan.androidsensors.databinding.ActivityMainBinding
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.rejowan.androidsensors.presentation.navigation.AppNavigation
+import com.rejowan.androidsensors.presentation.theme.AndroidSensorsTheme
 
-class MainActivity : AppCompatActivity() {
-
-    private val binding : ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
-
-
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        setContent {
+            AndroidSensorsTheme {
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    AppNavigation()
+                }
+            }
         }
-
-        binding.accelerometer.setOnClickListener {
-            startActivity(Intent(this, SensorsActivity::class.java).putExtra("sensor", "accelerometer"))
-        }
-
-        binding.gyroscope.setOnClickListener {
-            startActivity(Intent(this, SensorsActivity::class.java).putExtra("sensor", "gyroscope"))
-        }
-
-
     }
-
-
-
 }
