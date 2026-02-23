@@ -81,11 +81,70 @@ data class SensorInfo(
                 Sensor.TYPE_RELATIVE_HUMIDITY -> "Humidity"
                 Sensor.TYPE_AMBIENT_TEMPERATURE -> "Temperature"
                 Sensor.TYPE_GAME_ROTATION_VECTOR -> "Game Rotation"
+                Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR -> "Geomagnetic Rotation"
                 Sensor.TYPE_STEP_COUNTER -> "Step Counter"
                 Sensor.TYPE_STEP_DETECTOR -> "Step Detector"
                 Sensor.TYPE_HEART_RATE -> "Heart Rate"
                 Sensor.TYPE_SIGNIFICANT_MOTION -> "Significant Motion"
-                else -> "Unknown Sensor"
+                Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED -> "Magnetic Field (Uncalibrated)"
+                Sensor.TYPE_GYROSCOPE_UNCALIBRATED -> "Gyroscope (Uncalibrated)"
+                Sensor.TYPE_ACCELEROMETER_UNCALIBRATED -> "Accelerometer (Uncalibrated)"
+                Sensor.TYPE_POSE_6DOF -> "Pose 6DOF"
+                Sensor.TYPE_STATIONARY_DETECT -> "Stationary Detect"
+                Sensor.TYPE_MOTION_DETECT -> "Motion Detect"
+                Sensor.TYPE_LOW_LATENCY_OFFBODY_DETECT -> "Off-Body Detect"
+                Sensor.TYPE_HINGE_ANGLE -> "Hinge Angle"
+                Sensor.TYPE_HEAD_TRACKER -> "Head Tracker"
+                else -> "Sensor"
+            }
+        }
+
+        fun getUnit(sensorType: Int): String {
+            return when (sensorType) {
+                Sensor.TYPE_ACCELEROMETER,
+                Sensor.TYPE_GRAVITY,
+                Sensor.TYPE_LINEAR_ACCELERATION,
+                Sensor.TYPE_ACCELEROMETER_UNCALIBRATED -> "m/s²"
+
+                Sensor.TYPE_GYROSCOPE,
+                Sensor.TYPE_GYROSCOPE_UNCALIBRATED -> "rad/s"
+
+                Sensor.TYPE_MAGNETIC_FIELD,
+                Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED -> "μT"
+
+                Sensor.TYPE_LIGHT -> "lux"
+                Sensor.TYPE_PRESSURE -> "hPa"
+                Sensor.TYPE_PROXIMITY -> "cm"
+                Sensor.TYPE_RELATIVE_HUMIDITY -> "%"
+                Sensor.TYPE_AMBIENT_TEMPERATURE -> "°C"
+                Sensor.TYPE_STEP_COUNTER -> "steps"
+                Sensor.TYPE_HEART_RATE -> "bpm"
+                Sensor.TYPE_HINGE_ANGLE -> "°"
+
+                Sensor.TYPE_ROTATION_VECTOR,
+                Sensor.TYPE_GAME_ROTATION_VECTOR,
+                Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR -> ""
+
+                else -> ""
+            }
+        }
+
+        fun isSingleValue(sensorType: Int): Boolean {
+            return when (sensorType) {
+                Sensor.TYPE_LIGHT,
+                Sensor.TYPE_PRESSURE,
+                Sensor.TYPE_PROXIMITY,
+                Sensor.TYPE_AMBIENT_TEMPERATURE,
+                Sensor.TYPE_RELATIVE_HUMIDITY,
+                Sensor.TYPE_STEP_COUNTER,
+                Sensor.TYPE_STEP_DETECTOR,
+                Sensor.TYPE_HEART_RATE,
+                Sensor.TYPE_SIGNIFICANT_MOTION,
+                Sensor.TYPE_STATIONARY_DETECT,
+                Sensor.TYPE_MOTION_DETECT,
+                Sensor.TYPE_LOW_LATENCY_OFFBODY_DETECT,
+                Sensor.TYPE_HINGE_ANGLE -> true
+                else -> false
             }
         }
     }

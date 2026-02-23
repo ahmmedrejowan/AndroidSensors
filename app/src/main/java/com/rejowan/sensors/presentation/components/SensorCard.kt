@@ -110,23 +110,31 @@ fun SensorCard(
 
 private fun getSensorIcon(sensorType: Int): ImageVector {
     return when (sensorType) {
-        Sensor.TYPE_ACCELEROMETER -> Icons.Default.Speed
-        Sensor.TYPE_GYROSCOPE -> Icons.Default.RotateRight
-        Sensor.TYPE_MAGNETIC_FIELD -> Icons.Default.Explore
+        Sensor.TYPE_ACCELEROMETER,
+        Sensor.TYPE_ACCELEROMETER_UNCALIBRATED -> Icons.Default.Speed
+        Sensor.TYPE_GYROSCOPE,
+        Sensor.TYPE_GYROSCOPE_UNCALIBRATED -> Icons.Default.RotateRight
+        Sensor.TYPE_MAGNETIC_FIELD,
+        Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED -> Icons.Default.Explore
         Sensor.TYPE_LIGHT -> Icons.Default.LightMode
         Sensor.TYPE_PRESSURE -> Icons.Default.Compress
         Sensor.TYPE_PROXIMITY -> Icons.Default.NearMe
         Sensor.TYPE_GRAVITY -> Icons.Default.FitnessCenter
         Sensor.TYPE_LINEAR_ACCELERATION -> Icons.Default.Speed
-        Sensor.TYPE_ROTATION_VECTOR -> Icons.Default.RotateRight
-        Sensor.TYPE_GAME_ROTATION_VECTOR -> Icons.Default.RotateRight
+        Sensor.TYPE_ROTATION_VECTOR,
+        Sensor.TYPE_GAME_ROTATION_VECTOR,
         Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR -> Icons.Default.RotateRight
         Sensor.TYPE_RELATIVE_HUMIDITY -> Icons.Default.WaterDrop
         Sensor.TYPE_AMBIENT_TEMPERATURE -> Icons.Default.Thermostat
-        Sensor.TYPE_STEP_COUNTER -> Icons.AutoMirrored.Filled.DirectionsWalk
+        Sensor.TYPE_STEP_COUNTER,
         Sensor.TYPE_STEP_DETECTOR -> Icons.AutoMirrored.Filled.DirectionsWalk
         Sensor.TYPE_HEART_RATE -> Icons.Default.Favorite
-        Sensor.TYPE_SIGNIFICANT_MOTION -> Icons.Default.PhoneAndroid
+        Sensor.TYPE_SIGNIFICANT_MOTION,
+        Sensor.TYPE_MOTION_DETECT,
+        Sensor.TYPE_STATIONARY_DETECT -> Icons.Default.PhoneAndroid
+        Sensor.TYPE_HINGE_ANGLE -> Icons.Default.PhoneAndroid
+        Sensor.TYPE_POSE_6DOF,
+        Sensor.TYPE_HEAD_TRACKER -> Icons.Default.Sensors
         else -> Icons.Default.Sensors
     }
 }
