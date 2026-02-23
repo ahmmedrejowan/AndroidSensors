@@ -12,34 +12,55 @@ class HomeViewModel(
     private val sensorRepository: SensorRepository
 ) : ViewModel() {
 
+    private val _showAllSensors = MutableStateFlow(false)
+    val showAllSensors: StateFlow<Boolean> = _showAllSensors.asStateFlow()
+
     private val _sensorsByCategory = MutableStateFlow<Map<SensorCategory, List<SensorInfo>>>(emptyMap())
-    val sensorsByCategory: StateFlow<Map<SensorCategory, List<SensorInfo>>> = _sensorsByCategory.asStateFlow()
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
+    private val _filteredSensors = MutableStateFlow<Map<SensorCategory, List<SensorInfo>>>(emptyMap())
+    val filteredSensors: StateFlow<Map<SensorCategory, List<SensorInfo>>> = _filteredSensors.asStateFlow()
+
+    private val _sensorCount = MutableStateFlow(0)
+    val sensorCount: StateFlow<Int> = _sensorCount.asStateFlow()
 
     init {
         loadSensors()
     }
 
     private fun loadSensors() {
-        _sensorsByCategory.value = sensorRepository.getSensorsByCategory()
+        _sensorsByCategory.value = if (_showAllSensors.value) {
+            sensorRepository.getAllSensorsByCategory()
+        } else {
+            sensorRepository.getDefaultSensorsByCategory()
+        }
+        _sensorCount.value = _sensorsByCategory.value.values.sumOf { it.size }
+        filterSensors(_searchQuery.value)
+    }
+
+    fun toggleShowAllSensors() {
+        _showAllSensors.value = !_showAllSensors.value
+        loadSensors()
     }
 
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query
+        filterSensors(query)
     }
 
-    fun getFilteredSensors(): Map<SensorCategory, List<SensorInfo>> {
-        val query = _searchQuery.value.lowercase()
-        if (query.isEmpty()) {
-            return _sensorsByCategory.value
+    private fun filterSensors(query: String) {
+        val lowerQuery = query.lowercase()
+        if (lowerQuery.isEmpty()) {
+            _filteredSensors.value = _sensorsByCategory.value
+            return
         }
 
-        return _sensorsByCategory.value.mapValues { (_, sensors) ->
+        _filteredSensors.value = _sensorsByCategory.value.mapValues { (_, sensors) ->
             sensors.filter { sensor ->
-                sensor.name.lowercase().contains(query) ||
-                SensorInfo.getDisplayName(sensor.type).lowercase().contains(query)
+                sensor.name.lowercase().contains(lowerQuery) ||
+                SensorInfo.getDisplayName(sensor.type).lowercase().contains(lowerQuery)
             }
         }.filterValues { it.isNotEmpty() }
     }

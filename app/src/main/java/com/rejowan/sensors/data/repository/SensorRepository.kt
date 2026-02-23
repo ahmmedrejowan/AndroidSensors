@@ -43,7 +43,7 @@ class SensorRepository(context: Context) {
         Sensor.TYPE_HEART_RATE to SensorCategory.OTHER
     )
 
-    fun getAvailableSensors(): List<SensorInfo> {
+    fun getDefaultSensors(): List<SensorInfo> {
         val sensors = mutableListOf<SensorInfo>()
 
         sensorTypeToCategory.forEach { (type, category) ->
@@ -56,8 +56,19 @@ class SensorRepository(context: Context) {
         return sensors.sortedBy { it.category.ordinal }
     }
 
-    fun getSensorsByCategory(): Map<SensorCategory, List<SensorInfo>> {
-        return getAvailableSensors().groupBy { it.category }
+    fun getAllSensors(): List<SensorInfo> {
+        return sensorManager.getSensorList(Sensor.TYPE_ALL).map { sensor ->
+            val category = sensorTypeToCategory[sensor.type] ?: SensorCategory.OTHER
+            SensorInfo.fromSensor(sensor, category)
+        }.sortedBy { it.category.ordinal }
+    }
+
+    fun getDefaultSensorsByCategory(): Map<SensorCategory, List<SensorInfo>> {
+        return getDefaultSensors().groupBy { it.category }
+    }
+
+    fun getAllSensorsByCategory(): Map<SensorCategory, List<SensorInfo>> {
+        return getAllSensors().groupBy { it.category }
     }
 
     fun getSensor(sensorType: Int): Sensor? {
